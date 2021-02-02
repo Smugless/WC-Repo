@@ -1,6 +1,13 @@
 import java.awt.Graphics2D;
 import java.awt.Image;
 
+/**
+ * 
+ * @author Max (Smugless)
+ * 
+ *
+ */
+
 public class Board {
 	Image image;
 	

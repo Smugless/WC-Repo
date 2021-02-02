@@ -3,6 +3,12 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+/**
+ * 
+ * @author Max (Smugless)
+ * 
+ *
+ */
 
 public class artist {
 	public static BufferedImage quickLoad(String quickSource) {

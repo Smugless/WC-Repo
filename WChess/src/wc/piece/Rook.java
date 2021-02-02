@@ -9,9 +9,9 @@ import com.google.common.collect.ImmutableList;
 import wc.board.Board;
 import wc.board.BoardUtils;
 import wc.board.Move;
-import wc.board.Move.MajorMove;
-import wc.board.Move.CaptureMove;
 import wc.board.Square;
+import wc.board.Move.CaptureMove;
+import wc.board.Move.MajorMove;
 
 /**
  * 
@@ -20,13 +20,13 @@ import wc.board.Square;
  * Very Heavily influenced by amir.afghani's code and youtube series here:https://youtu.be/h8fSdSUKttk
  */
 
-public class Bishop extends Piece {
+public class Rook extends Piece{
 
-	private static final int[] CANDIDATE_MOVE_VECTOR_COORDINATES = { -9, -7, 7, 9 };
-
-	Bishop(int piecePosition, Alliance pieceAlliance, BoardUtils boardUtils) {
+	Rook(int piecePosition, Alliance pieceAlliance, BoardUtils boardUtils) {
 		super(piecePosition, pieceAlliance, boardUtils);
 	}
+	
+	private static final int[] CANDIDATE_MOVE_VECTOR_COORDINATES = { -8, -1, 1, 8 };
 
 	@Override
 	public Collection<Move> calculateLegalMoves(final Board board) {
@@ -64,11 +64,12 @@ public class Bishop extends Piece {
 	}
 
 	private static boolean isAFileExclusion(final int currentPosition, final int candidateOffset) {
-		return BoardUtils.FILES[0][currentPosition] && (candidateOffset == -9 || candidateOffset == 7);
+		return BoardUtils.FILES[0][currentPosition] && candidateOffset == -1;
 	}
 
 	private static boolean isHFileExclusion(final int currentPosition, final int candidateOffset) {
-		return BoardUtils.FILES[7][currentPosition] && (candidateOffset == -7 || candidateOffset == 9);
+		return BoardUtils.FILES[7][currentPosition] && candidateOffset == 1;
 	}
 
 }
+

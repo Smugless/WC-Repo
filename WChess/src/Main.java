@@ -5,6 +5,13 @@ import java.awt.Image;
 
 import javax.swing.JFrame;
 
+/**
+ * 
+ * @author Max (Smugless)
+ * 
+ *
+ */
+
 public class Main extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;

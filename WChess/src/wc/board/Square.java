@@ -7,6 +7,13 @@ import com.google.common.collect.ImmutableMap;
 
 import wc.piece.Piece;
 
+/**
+ * 
+ * @author Max (Smugless)
+ * 
+ * Very Heavily influenced by amir.afghani's code and youtube series here:https://youtu.be/h8fSdSUKttk
+ */
+
 public abstract class Square {
 	
 	private final byte squareCoordinate;
@@ -24,9 +31,9 @@ public abstract class Square {
 	
 	private static Map<Byte, EmptySquare> createAllPossibleEmptySquares() {
 		
-		final Map<Byte, EmptySquare> emptySquareMap = new HashMap();
+		final Map<Byte, EmptySquare> emptySquareMap = new HashMap<Byte, EmptySquare>();
 		
-		for(byte i = 0; i < 64; i++) {
+		for(byte i = 0; i < BoardUtils.NUM_SQUARES; i++) {
 			emptySquareMap.put(i, new EmptySquare(i));
 		}
 		

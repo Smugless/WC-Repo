@@ -7,11 +7,11 @@ import java.util.List;
 import com.google.common.collect.ImmutableList;
 
 import wc.board.Board;
-import wc.board.Move;
-import wc.board.Move.MajorMove;
-import wc.board.Move.CaptureMove;
-import wc.board.Square;
 import wc.board.BoardUtils;
+import wc.board.Move;
+import wc.board.Square;
+import wc.board.Move.CaptureMove;
+import wc.board.Move.MajorMove;
 
 /**
  * 
@@ -20,28 +20,27 @@ import wc.board.BoardUtils;
  * Very Heavily influenced by amir.afghani's code and youtube series here:https://youtu.be/h8fSdSUKttk
  */
 
-public class Knight extends Piece {
+public class King extends Piece {
 
-	private static int[] CANDIDATE_MOVE_COORDINATES = { -17, -15, -10, -6, 6, 10, 15, 17 };
+	private final static int[] CANDIDATE_MOVE_COORDINATE = { -9, -8, -7, -1, 1, 7, 8, 9 };
 
-	Knight(int piecePosition, Alliance pieceAlliance, BoardUtils boardUtils) {
+	King(int piecePosition, Alliance pieceAlliance, BoardUtils boardUtils) {
 		super(piecePosition, pieceAlliance, boardUtils);
 	}
 
-	public Collection<Move> calculateLegalMoves(final Board board) {
-
+	@Override
+	public Collection<Move> calculateLegalMoves(Board board) {
+		
 		int candidateDestinationCoordinate;
 		final List<Move> legalMoves = new ArrayList<>();
-
-		for (final int currentCandidateOffset : CANDIDATE_MOVE_COORDINATES) {
+		
+		for(final int currentCandidateOffset : CANDIDATE_MOVE_COORDINATE) {
 			candidateDestinationCoordinate = (int) (this.piecePosition + currentCandidateOffset);
-			if (BoardUtils.isValidSquareCoordinate(candidateDestinationCoordinate)) {
-				if (isAFileExclusion(this.piecePosition, currentCandidateOffset)
-						|| isBFileExclusion(this.piecePosition, currentCandidateOffset)
-						|| isGFileExclusion(this.piecePosition, currentCandidateOffset)
-						|| isHFileExclusion(this.piecePosition, currentCandidateOffset)) {
-					continue;
-				}
+			if(isAFileExclusion(this.piecePosition, currentCandidateOffset)
+					|| isHFileExclusion(this.piecePosition, currentCandidateOffset)) {
+				continue;
+			}
+			if(BoardUtils.isValidSquareCoordinate(candidateDestinationCoordinate)) {
 				final Square candidateDestinationSquare = board.getSquare(candidateDestinationCoordinate);
 				if (!candidateDestinationSquare.isSquareOccupied()) {
 					legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
@@ -55,26 +54,17 @@ public class Knight extends Piece {
 				}
 			}
 		}
-
+		
 		return ImmutableList.copyOf(legalMoves);
 	}
-
+	
 	private static boolean isAFileExclusion(final int currentPosition, final int candidateOffset) {
 		return BoardUtils.FILES[0][currentPosition]
-				&& (candidateOffset == -17 || candidateOffset == -10 || candidateOffset == 6 || candidateOffset == 15);
-	}
-
-	private static boolean isBFileExclusion(final int currentPosition, final int candidateOffset) {
-		return BoardUtils.FILES[1][currentPosition] && (candidateOffset == -10 || candidateOffset == 6);
-	}
-
-	private static boolean isGFileExclusion(final int currentPosition, final int candidateOffset) {
-		return BoardUtils.FILES[6][currentPosition] && (candidateOffset == -6 || candidateOffset == 10);
+				&& (candidateOffset == -9 || candidateOffset == -1 || candidateOffset == 7);
 	}
 
 	private static boolean isHFileExclusion(final int currentPosition, final int candidateOffset) {
-		return BoardUtils.FILES[7][currentPosition]
-				&& (candidateOffset == -15 || candidateOffset == -6 || candidateOffset == 10 || candidateOffset == 17);
+		return BoardUtils.FILES[7][currentPosition] && (candidateOffset == -7 || candidateOffset == 1 || candidateOffset == 9);
 	}
 
 }
